@@ -1,0 +1,90 @@
+.main {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  font-family: "Courier New", Courier, monospace;
+  .map {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .controls {
+    position: absolute;
+    max-height: 200px;
+    overflow: hidden;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.6);
+    z-index: 1;
+    top: 10px;
+    right: 10px;
+    border-radius: 20px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    button {
+      background-color: transparent;
+      margin-top: 2px;
+      margin-bottom: 2px;
+      mat-icon {
+        &:hover {
+          color: red;
+        }
+      }
+    }
+  }
+  .legends {
+    width: 250px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 10px 25px 10px 10px;
+    display: flex;
+    flex-flow: column;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    .legendBox {
+      position: relative;
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      .legend {
+        position: relative;
+        margin-bottom: 5px;
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 30px;
+        div {
+          height: 30px;
+          text-align: center;
+          line-height: 30px;
+        }
+      }
+    }
+  }
+  .title {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding: 7px 10px 5px 10px;
+  }
+  .lastUpdated {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    color: white;
+    font-size: 15px;
+  }
+}
