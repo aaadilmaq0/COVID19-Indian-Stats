@@ -2,8 +2,6 @@
 # COVID19-Indian-Stats
 A single web page, which shows the latest Corona Virus Statistics in India, using web scraping.
 
-# Corona
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
 
 ## Development server
