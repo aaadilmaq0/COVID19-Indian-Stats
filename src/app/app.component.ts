@@ -21,7 +21,7 @@ export class AppComponent implements AfterViewInit {
   heatmap: boolean = false;
   HeatMap: google.maps.visualization.HeatmapLayer;
   markers: google.maps.Marker[] = [];
-  legends:{name:string, color:string}[]=[];
+  legends:{name:string, color:string, count?:number}[]=[];
   zoomLevel: number = 5;
 
   constructor(private ds: DataService) {}
@@ -267,17 +267,17 @@ export class AppComponent implements AfterViewInit {
     this.make();
   }
 
-  make() {
-    let data: {
-      name: string;
-      indian: number;
-      foreign: number;
-      cured: number;
-      death: number;
-      lat: number;
-      lng: number;
-      total?: number;
-    }[] = this.ds.getData();
+  async make() {
+    let data:any = [], err = null,  tIndians, tForeign, tCured, tDeaths;
+    await this.ds.getData().then(response=>{
+      data=response["data"];
+      this.lastUpdated="Last Updated: "+response["lastUpdated"]+" (IST)";
+      tIndians=response["tIndians"]; 
+      tForeign=response["tForeign"]; 
+      tCured=response["tCured"]; 
+      tDeaths=response["tDeaths"];
+    }).catch(error=>err=true);
+    if(err) return;
     this.clearMarkers();
     this.clearHeatMap();
     if (this.heatmap) {
@@ -308,7 +308,7 @@ export class AppComponent implements AfterViewInit {
           if (d.total) {
             let color = pieColorList[colorIndex++];
             infoWindowContent += `<strong style="color:${color}">${d.name}</strong> : ${d.total}<br>`;
-            this.legends.push({name:d.name, color:color});
+            this.legends.push({name:d.name, color:color, count:d.total});
             pieValues.push(d.total);
             pieColors.push(color);
             if (d.total > max) {
@@ -317,6 +317,7 @@ export class AppComponent implements AfterViewInit {
             }
           }
         });
+        infoWindowContent += `<u>Double click pie or Zoom in to go to state level</u>`;
         if (pieValues && pieColors && pieValues.length && pieColors.length) {
           let svgc = svgCharts().generatePieChartSVG(pieValues, pieColors, 300);
           svgc = svgc.split(`fill="white"`);
@@ -337,6 +338,9 @@ export class AppComponent implements AfterViewInit {
           marker.addListener("click", () => {
             infoWindow.open(this.map, marker);
           });
+          marker.addListener("dblclick", ()=>{
+            this.map.setZoom(5);
+          });
           this.markers.push(marker);
         }
       } else{
@@ -345,19 +349,23 @@ export class AppComponent implements AfterViewInit {
         this.legends = [
           {
             name: "Indians",
-            color: pieColorList[0]
+            color: pieColorList[0],
+            count: tIndians
           },
           {
             name: "Foreigners",
-            color: pieColorList[1]
+            color: pieColorList[1],
+            count: tForeign
           },
           {
             name: "Cured",
-            color: pieColorList[2]
+            color: pieColorList[2],
+            count: tCured
           },
           {
             name: "Deaths",
-            color: pieColorList[3]
+            color: pieColorList[3],
+            count: tDeaths
           }
         ]
         data.forEach(d=>{

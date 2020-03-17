@@ -10,7 +10,7 @@
   <div class="legendBox">
     <div class="legend" *ngFor="let legend of legends">
       <div style="width: 70%;">{{ legend.name }}</div>
-      <div style="width:30%;border-radius: 10px;" [ngStyle]="{'background-color': legend.color}"></div>
+      <div style="width:30%;border-radius: 10px;" [ngStyle]="{'background-color': legend.color}">{{ legend.count ||'' }}</div>
     </div>
   </div>
 </div>
