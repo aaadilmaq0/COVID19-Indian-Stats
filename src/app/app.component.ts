@@ -22,6 +22,7 @@ export class AppComponent implements AfterViewInit {
   HeatMap: google.maps.visualization.HeatmapLayer;
   markers: google.maps.Marker[] = [];
   legends:{name:string, color:string}[]=[];
+  zoomLevel: number = 5;
 
   constructor(private ds: DataService) {}
 
@@ -31,7 +32,7 @@ export class AppComponent implements AfterViewInit {
         lat: 23.6444519,
         lng: 78.830071
       },
-      zoom: 5,
+      zoom: this.zoomLevel,
       minZoom: 3,
       maxZoom: 19,
       controlSize: 50,
@@ -235,6 +236,9 @@ export class AppComponent implements AfterViewInit {
       screenfull.onchange(() => (this.fullscreen = !this.fullscreen));
     }
     this.make();
+    this.map.addListener("zoom_changed", ()=>{
+      this.check();
+    });
   }
 
   toggleFullScreen() {
@@ -244,14 +248,18 @@ export class AppComponent implements AfterViewInit {
   }
 
   zoom(n: number) {
-    let prevZoom = this.map.getZoom();
-    let newZoom = prevZoom + n;
-    this.map.setZoom(newZoom);
+    this.map.setZoom(this.map.getZoom()+n);
+  }
+
+  check(){
+    let newZoom = this.map.getZoom();
     if (
       !this.heatmap &&
-      ((prevZoom < 5 && newZoom >= 5) || (prevZoom >= 5 && newZoom < 5))
-    )
+      ((this.zoomLevel < 5 && newZoom >= 5) || (this.zoomLevel >= 5 && newZoom < 5))
+    ){
       this.make();
+    }
+    this.zoomLevel = newZoom;
   }
 
   toggleHeatMap() {
