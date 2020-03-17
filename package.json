@@ -25,6 +25,7 @@
     "@types/google-maps": "^3.2.2",
     "cheerio": "^1.0.0-rc.3",
     "googlemaps": "^1.12.0",
+    "ngx-spinner": "^9.0.1",
     "rxjs": "~6.5.4",
     "screenfull": "^5.0.2",
     "stream": "0.0.2",

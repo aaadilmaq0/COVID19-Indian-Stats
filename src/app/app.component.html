@@ -1,10 +1,10 @@
 <div class="main" #fullscreenDiv>
   <div class="map" #map></div>
 <div class="controls">
-  <button mat-icon-button (click)="toggleFullScreen()"><img [src]="fullscreen ? '../assets/size.png' : '../assets/resize.png'" width="16" height="16" alt="fullscreen"></button>
+  <button mat-icon-button (click)="toggleFullScreen()"><mat-icon>{{ fullscreen ? 'fullscreen_exit' : 'fullscreen' }}</mat-icon></button>
   <button mat-icon-button (click)="zoom(1)"><mat-icon>zoom_in</mat-icon></button>
   <button mat-icon-button (click)="zoom(-1)"><mat-icon>zoom_out</mat-icon></button>
-  <button mat-icon-button (click)="toggleHeatMap()"><img [src]="heatmap ? '../assets/pie.png' : '../assets/heat.png'" height="40" width="40"></button>
+  <button mat-icon-button (click)="toggleHeatMap()"><mat-icon>{{ heatmap ? 'pie_chart' : 'whatshot' }}</mat-icon></button>
 </div>
 <div class="legends" *ngIf="!heatmap">
   <div class="legendBox">
@@ -14,6 +14,7 @@
     </div>
   </div>
 </div>
-<div class="title">{{title}}</div>
+<div class="title">{{title}}(<a href="http://mohfw.gov.in/" style="color: white;" target="_blank">Source: MOHFW</a>)</div>
 <div class="lastUpdated">{{lastUpdated}}</div>
 </div>
+<ngx-spinner></ngx-spinner>

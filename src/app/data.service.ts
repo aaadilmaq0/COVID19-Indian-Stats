@@ -387,9 +387,7 @@ export class DataService {
               tCured = 0,
               tDeaths = 0;
             const $ = cheerio.load(response);
-            let lastUpdated = $(
-              "#content > div > div > div > div > div > div > div > ol > li:nth-child(2) > strong > p:nth-child(1)"
-            )
+            let lastUpdated = $("body > div:nth-child(3) > div > div > div > ol > li:nth-child(2) > strong > p")
               .text()
               .trim()
               .split("as on ")[1];

@@ -3,7 +3,7 @@ import {} from "googlemaps";
 import * as screenfull from "screenfull";
 import { DataService } from "./data.service";
 import * as svgCharts from "svg-charts";
-
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -15,7 +15,7 @@ export class AppComponent implements AfterViewInit {
 
   map: google.maps.Map;
 
-  title: string = "Indian States Corona Virus Stats (Source: MOHFW)";
+  title: string = "Indian States Corona Virus Stats ";
   lastUpdated: string = "Last Updated: 04:13, Tue 13th March, 2020"
   fullscreen: boolean = false;
   heatmap: boolean = false;
@@ -24,7 +24,7 @@ export class AppComponent implements AfterViewInit {
   legends:{name:string, color:string, count?:number}[]=[];
   zoomLevel: number = 5;
 
-  constructor(private ds: DataService) {}
+  constructor(private ds: DataService, private spinner: NgxSpinnerService) {}
 
   ngAfterViewInit() {
     this.map = new google.maps.Map(this.mapElement.nativeElement, {
@@ -268,6 +268,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   async make() {
+    this.spinner.show();
     let data:any = [], err = null,  tIndians, tForeign, tCured, tDeaths;
     await this.ds.getData().then(response=>{
       data=response["data"];
@@ -431,6 +432,7 @@ export class AppComponent implements AfterViewInit {
         });
       }
     }
+    setTimeout(()=>this.spinner.hide(),100);
   }
 
   clearHeatMap() {
