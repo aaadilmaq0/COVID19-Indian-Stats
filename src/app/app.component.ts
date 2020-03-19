@@ -404,7 +404,7 @@ export class AppComponent implements  AfterViewInit {
           svgc = svgc.join(`fill="${pieColors[maxIndex]}"`);
           let infoWindowContent = 
           `
-          <strong>State/UT : ${d.name}</strong><br>
+          <strong>${d.name}</strong><br>
           <strong style="color:${pieColorList[0]}">Total Cases (Indians)</strong> : ${d.indian}<br>
           <strong style="color:${pieColorList[1]}">Total Cases (Foreigners)</strong> : ${d.foreign}<br>
           <strong style="color:${pieColorList[2]}">Total Cured</strong> : ${d.cured}<br>
