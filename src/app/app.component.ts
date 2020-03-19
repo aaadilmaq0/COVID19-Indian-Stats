@@ -1,15 +1,17 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
-import {} from "googlemaps";
+import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from "@angular/core";
 import * as screenfull from "screenfull";
 import { DataService } from "./data.service";
 import * as svgCharts from "svg-charts";
 import { NgxSpinnerService } from "ngx-spinner";
+import {} from "googlemaps";
+
+declare var google: any;
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"]
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements  AfterViewInit {
   @ViewChild("map") mapElement: ElementRef;
   @ViewChild("fullscreenDiv") fullscreenDiv: ElementRef;
 
@@ -272,7 +274,7 @@ export class AppComponent implements AfterViewInit {
     let data:any = [], err = null,  tIndians, tForeign, tCured, tDeaths;
     await this.ds.getData().then(response=>{
       data=response["data"];
-      this.lastUpdated="Last Updated: "+response["lastUpdated"]+" (IST)";
+      this.lastUpdated= !response["lastUpdated"] ? '' : "Last Updated: "+response["lastUpdated"]+" (IST)";
       tIndians=response["tIndians"]; 
       tForeign=response["tForeign"]; 
       tCured=response["tCured"]; 

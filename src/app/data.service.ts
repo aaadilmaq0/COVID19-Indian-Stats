@@ -387,15 +387,31 @@ export class DataService {
               tCured = 0,
               tDeaths = 0;
             const $ = cheerio.load(response);
-            let lastUpdated = $("body > div:nth-child(3) > div > div > div > ol > li:nth-child(2) > strong > p")
+            let lastUpdated = $(
+              "body > div:nth-child(3) > div > div > div > ol > li:nth-child(2) > strong > p"
+            )
               .text()
               .trim()
               .split("as on ")[1];
-              lastUpdated = lastUpdated ||  $("body > div:nth-child(3) > div > div > div > ol > strong > strong > strong > p")
-              .text()
-              .trim()
-              .split("as on ")[1];
-            if(lastUpdated) lastUpdated = lastUpdated.substring(0, lastUpdated.length - 1);
+            lastUpdated =
+              lastUpdated ||
+              $(
+                "body > div:nth-child(3) > div > div > div > ol > strong > strong > strong > p"
+              )
+                .text()
+                .trim()
+                .split("as on ")[1];
+            lastUpdated =
+              lastUpdated ||
+              $(
+                "body > div:nth-child(3) > div > div > div > ol > strong > strong > strong > strong > p"
+              )
+                .text()
+                .trim()
+                .split("as on ")[1];
+            lastUpdated = !lastUpdated
+              ? ""
+              : lastUpdated.substring(0, lastUpdated.length - 1);
             const rows = $("tr");
             rows.each((i, element) => {
               if (i === 0 || i === rows.length - 1) return;
