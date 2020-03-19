@@ -91,6 +91,21 @@ export class DataService {
       name: "Uttarakhand",
       lat: 30.0668,
       lng: 79.0193
+    },
+    {
+      name: "West Bengal",
+      lat: 22.9868,
+      lng: 87.8550
+    },
+    {
+      name: "Pondicherry",
+      lat: 11.9416,
+      lng: 79.8083
+    },
+    {
+      name: "Union Territory of Chandigarh",
+      lat: 30.7333,
+      lng: 76.7794
     }
   ];
 

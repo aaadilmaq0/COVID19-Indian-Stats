@@ -29,218 +29,220 @@ export class AppComponent implements  AfterViewInit {
   constructor(private ds: DataService, private spinner: NgxSpinnerService) {}
 
   ngAfterViewInit() {
-    this.map = new google.maps.Map(this.mapElement.nativeElement, {
-      center: {
-        lat: 23.6444519,
-        lng: 78.830071
-      },
-      zoom: this.zoomLevel,
-      minZoom: 3,
-      maxZoom: 19,
-      controlSize: 50,
-      zoomControlOptions: {
-        position: google.maps.ControlPosition.TOP_RIGHT,
-        style: google.maps.ZoomControlStyle.SMALL
-      },
-      streetViewControl: false,
-      panControl: true,
-      gestureHandling: "cooperative",
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      disableDefaultUI: true,
-      styles: [
-        {
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#212121"
-            }
-          ]
+    setTimeout(()=>{
+      this.map = new google.maps.Map(this.mapElement.nativeElement, {
+        center: {
+          lat: 23.6444519,
+          lng: 78.830071
         },
-        {
-          elementType: "labels.icon",
-          stylers: [
-            {
-              visibility: "off"
-            }
-          ]
+        zoom: this.zoomLevel,
+        minZoom: 3,
+        maxZoom: 19,
+        controlSize: 50,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.TOP_RIGHT,
+          style: google.maps.ZoomControlStyle.SMALL
         },
-        {
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#757575"
-            }
-          ]
-        },
-        {
-          elementType: "labels.text.stroke",
-          stylers: [
-            {
-              color: "#212121"
-            }
-          ]
-        },
-        {
-          featureType: "administrative",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#757575"
-            }
-          ]
-        },
-        {
-          featureType: "administrative.country",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#9e9e9e"
-            }
-          ]
-        },
-        {
-          featureType: "administrative.land_parcel",
-          stylers: [
-            {
-              visibility: "off"
-            }
-          ]
-        },
-        {
-          featureType: "administrative.locality",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#bdbdbd"
-            }
-          ]
-        },
-        {
-          featureType: "poi",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#757575"
-            }
-          ]
-        },
-        {
-          featureType: "poi.park",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#181818"
-            }
-          ]
-        },
-        {
-          featureType: "poi.park",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#616161"
-            }
-          ]
-        },
-        {
-          featureType: "poi.park",
-          elementType: "labels.text.stroke",
-          stylers: [
-            {
-              color: "#1b1b1b"
-            }
-          ]
-        },
-        {
-          featureType: "road",
-          elementType: "geometry.fill",
-          stylers: [
-            {
-              color: "#2c2c2c"
-            }
-          ]
-        },
-        {
-          featureType: "road",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#8a8a8a"
-            }
-          ]
-        },
-        {
-          featureType: "road.arterial",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#373737"
-            }
-          ]
-        },
-        {
-          featureType: "road.highway",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#3c3c3c"
-            }
-          ]
-        },
-        {
-          featureType: "road.highway.controlled_access",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#4e4e4e"
-            }
-          ]
-        },
-        {
-          featureType: "road.local",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#616161"
-            }
-          ]
-        },
-        {
-          featureType: "transit",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#757575"
-            }
-          ]
-        },
-        {
-          featureType: "water",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#000000"
-            }
-          ]
-        },
-        {
-          featureType: "water",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#3d3d3d"
-            }
-          ]
-        }
-      ]
-    });
-    if (screenfull.isEnabled) {
-      screenfull.onchange(() => (this.fullscreen = !this.fullscreen));
-    }
-    this.make();
-    this.map.addListener("zoom_changed", ()=>{
-      this.check();
-    });
+        streetViewControl: false,
+        panControl: true,
+        gestureHandling: "cooperative",
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: true,
+        styles: [
+          {
+            elementType: "geometry",
+            stylers: [
+              {
+                color: "#212121"
+              }
+            ]
+          },
+          {
+            elementType: "labels.icon",
+            stylers: [
+              {
+                visibility: "off"
+              }
+            ]
+          },
+          {
+            elementType: "labels.text.fill",
+            stylers: [
+              {
+                color: "#757575"
+              }
+            ]
+          },
+          {
+            elementType: "labels.text.stroke",
+            stylers: [
+              {
+                color: "#212121"
+              }
+            ]
+          },
+          {
+            featureType: "administrative",
+            elementType: "geometry",
+            stylers: [
+              {
+                color: "#757575"
+              }
+            ]
+          },
+          {
+            featureType: "administrative.country",
+            elementType: "labels.text.fill",
+            stylers: [
+              {
+                color: "#9e9e9e"
+              }
+            ]
+          },
+          {
+            featureType: "administrative.land_parcel",
+            stylers: [
+              {
+                visibility: "off"
+              }
+            ]
+          },
+          {
+            featureType: "administrative.locality",
+            elementType: "labels.text.fill",
+            stylers: [
+              {
+                color: "#bdbdbd"
+              }
+            ]
+          },
+          {
+            featureType: "poi",
+            elementType: "labels.text.fill",
+            stylers: [
+              {
+                color: "#757575"
+              }
+            ]
+          },
+          {
+            featureType: "poi.park",
+            elementType: "geometry",
+            stylers: [
+              {
+                color: "#181818"
+              }
+            ]
+          },
+          {
+            featureType: "poi.park",
+            elementType: "labels.text.fill",
+            stylers: [
+              {
+                color: "#616161"
+              }
+            ]
+          },
+          {
+            featureType: "poi.park",
+            elementType: "labels.text.stroke",
+            stylers: [
+              {
+                color: "#1b1b1b"
+              }
+            ]
+          },
+          {
+            featureType: "road",
+            elementType: "geometry.fill",
+            stylers: [
+              {
+                color: "#2c2c2c"
+              }
+            ]
+          },
+          {
+            featureType: "road",
+            elementType: "labels.text.fill",
+            stylers: [
+              {
+                color: "#8a8a8a"
+              }
+            ]
+          },
+          {
+            featureType: "road.arterial",
+            elementType: "geometry",
+            stylers: [
+              {
+                color: "#373737"
+              }
+            ]
+          },
+          {
+            featureType: "road.highway",
+            elementType: "geometry",
+            stylers: [
+              {
+                color: "#3c3c3c"
+              }
+            ]
+          },
+          {
+            featureType: "road.highway.controlled_access",
+            elementType: "geometry",
+            stylers: [
+              {
+                color: "#4e4e4e"
+              }
+            ]
+          },
+          {
+            featureType: "road.local",
+            elementType: "labels.text.fill",
+            stylers: [
+              {
+                color: "#616161"
+              }
+            ]
+          },
+          {
+            featureType: "transit",
+            elementType: "labels.text.fill",
+            stylers: [
+              {
+                color: "#757575"
+              }
+            ]
+          },
+          {
+            featureType: "water",
+            elementType: "geometry",
+            stylers: [
+              {
+                color: "#000000"
+              }
+            ]
+          },
+          {
+            featureType: "water",
+            elementType: "labels.text.fill",
+            stylers: [
+              {
+                color: "#3d3d3d"
+              }
+            ]
+          }
+        ]
+      });
+      if (screenfull.isEnabled) {
+        screenfull.onchange(() => (this.fullscreen = !this.fullscreen));
+      }
+      this.make();
+      this.map.addListener("zoom_changed", ()=>{
+        this.check();
+      });
+    },1000);
   }
 
   toggleFullScreen() {
@@ -402,7 +404,7 @@ export class AppComponent implements  AfterViewInit {
           svgc = svgc.join(`fill="${pieColors[maxIndex]}"`);
           let infoWindowContent = 
           `
-          <strong>State : ${d.name}</strong><br>
+          <strong>State/UT : ${d.name}</strong><br>
           <strong style="color:${pieColorList[0]}">Total Cases (Indians)</strong> : ${d.indian}<br>
           <strong style="color:${pieColorList[1]}">Total Cases (Foreigners)</strong> : ${d.foreign}<br>
           <strong style="color:${pieColorList[2]}">Total Cured</strong> : ${d.cured}<br>
