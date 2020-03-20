@@ -111,6 +111,11 @@ export class DataService {
       name: "Chattisgarh",
       lat: 21.2787,
       lng: 81.8661
+    },
+    {
+      name: "Gujarat",
+      lat: 23.0225,
+      lng: 72.5714
     }
   ];
 
