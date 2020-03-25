@@ -73,12 +73,12 @@ export class DataService {
       lng: 79.208824
     },
     {
-      name: "Union Territory of Jammu and Kashmir",
+      name: "Jammu and Kashmir",
       lat: 33.7782,
       lng: 76.5762
     },
     {
-      name: "Union Territory of Ladakh",
+      name: "Ladakh",
       lat: 34.2996,
       lng: 78.2932
     },
@@ -95,20 +95,20 @@ export class DataService {
     {
       name: "West Bengal",
       lat: 22.9868,
-      lng: 87.8550
+      lng: 87.855
     },
     {
-      name: "Pondicherry",
+      name: "Puducherry",
       lat: 11.9416,
       lng: 79.8083
     },
     {
-      name: "Union Territory of Chandigarh",
+      name: "Chandigarh",
       lat: 30.7333,
       lng: 76.7794
     },
     {
-      name: "Chattisgarh",
+      name: "Chhattisgarh",
       lat: 21.2787,
       lng: 81.8661
     },
@@ -116,6 +116,31 @@ export class DataService {
       name: "Gujarat",
       lat: 23.0225,
       lng: 72.5714
+    },
+    {
+      name: "Madhya Pradesh",
+      lat: 22.9734,
+      lng: 78.6569
+    },
+    {
+      name: "Himachal Pradesh",
+      lat: 31.1048,
+      lng: 77.1734
+    },
+    {
+      name: "Bihar",
+      lat: 25.0961,
+      lng: 85.3131
+    },
+    {
+      name: "Manipur",
+      lat: 24.6637,
+      lng: 93.9063
+    },
+    {
+      name: "Mizoram",
+      lat: 23.1645,
+      lng: 92.9376
     }
   ];
 
@@ -413,30 +438,11 @@ export class DataService {
               tDeaths = 0;
             const $ = cheerio.load(response);
             let lastUpdated = $(
-              "body > div:nth-child(3) > div > div > div > ol > li:nth-child(2) > strong > p"
+              "#cases > div > p > strong"
             )
               .text()
               .trim()
               .split("as on ")[1];
-            lastUpdated =
-              lastUpdated ||
-              $(
-                "body > div:nth-child(3) > div > div > div > ol > strong > strong > strong > p"
-              )
-                .text()
-                .trim()
-                .split("as on ")[1];
-            lastUpdated =
-              lastUpdated ||
-              $(
-                "body > div:nth-child(3) > div > div > div > ol > strong > strong > strong > strong > p"
-              )
-                .text()
-                .trim()
-                .split("as on ")[1];
-            lastUpdated = !lastUpdated
-              ? ""
-              : lastUpdated.substring(0, lastUpdated.length - 1);
             const rows = $("tr");
             rows.each((i, element) => {
               if (i === 0 || i === rows.length - 1) return;
@@ -476,6 +482,7 @@ export class DataService {
                 lng
               });
             });
+            console.log(data);
             resolve({ data, lastUpdated, tIndians, tForeign, tCured, tDeaths });
           },
           error => {
