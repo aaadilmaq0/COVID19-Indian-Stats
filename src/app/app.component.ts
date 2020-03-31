@@ -242,7 +242,7 @@ export class AppComponent implements  AfterViewInit {
       this.map.addListener("zoom_changed", ()=>{
         this.check();
       });
-    },1000);
+    },2000);
   }
 
   toggleFullScreen() {
@@ -273,12 +273,11 @@ export class AppComponent implements  AfterViewInit {
 
   async make() {
     this.spinner.show();
-    let data:any = [], err = null,  tIndians, tForeign, tCured, tDeaths;
+    let data:any = [], err = null,  tTotal, tCured, tDeaths;
     await this.ds.getData().then(response=>{
       data=response["data"];
       this.lastUpdated= !response["lastUpdated"] ? '' : "Last Updated: "+response["lastUpdated"]+" (IST)";
-      tIndians=response["tIndians"]; 
-      tForeign=response["tForeign"]; 
+      tTotal=response["tTotal"];
       tCured=response["tCured"]; 
       tDeaths=response["tDeaths"];
     }).catch(error=>err=true);
@@ -350,17 +349,12 @@ export class AppComponent implements  AfterViewInit {
         }
       } else{
         let min = Math.min(...data.map(d=>d.total)), max = Math.max(...data.map(d=>d.total)), newMin = 20, newMax = 80;
-        let pieColorList = ["#FFBF00", "#0000FF", "#00FF00", "#FF0000"];
+        let pieColorList = ["#0000FF", "#0000FF", "#00FF00", "#FF0000"];
         this.legends = [
           {
-            name: "Indians",
+            name: "Total",
             color: pieColorList[0],
-            count: tIndians
-          },
-          {
-            name: "Foreigners",
-            color: pieColorList[1],
-            count: tForeign
+            count: tTotal
           },
           {
             name: "Cured",
@@ -376,13 +370,9 @@ export class AppComponent implements  AfterViewInit {
         data.forEach(d=>{
           let scale = newMin + ((d.total-min)/(max-min)*(newMax-newMin));
           let pieValues = [], pieColors = [];
-          if(d.indian>0){
-            pieValues.push(d.indian);
+          if(d.total>0){
+            pieValues.push(d.total);
             pieColors.push(pieColorList[0]);
-          }
-          if(d.foreign>0){
-            pieValues.push(d.foreign);
-            pieColors.push(pieColorList[1]);
           }
           if(d.cured>0){
             pieValues.push(d.cured);
@@ -392,7 +382,7 @@ export class AppComponent implements  AfterViewInit {
             pieValues.push(d.death);
             pieColors.push(pieColorList[3]);
           }
-          let maxVal = d.indian, maxIndex = 0;
+          let maxVal = d.total, maxIndex = 0;
           for(let i=1; i<4;i++){
             if(pieValues[i]<maxVal){
               maxVal = pieValues[i];
@@ -405,8 +395,7 @@ export class AppComponent implements  AfterViewInit {
           let infoWindowContent = 
           `
           <strong>${d.name}</strong><br>
-          <strong style="color:${pieColorList[0]}">Total Cases (Indians)</strong> : ${d.indian}<br>
-          <strong style="color:${pieColorList[1]}">Total Cases (Foreigners)</strong> : ${d.foreign}<br>
+          <strong style="color:${pieColorList[0]}">Total Cases</strong> : ${d.total}<br>
           <strong style="color:${pieColorList[2]}">Total Cured</strong> : ${d.cured}<br>
           <strong style="color:${pieColorList[3]}">Total Deaths</strong> : ${d.death}<br>
           `;

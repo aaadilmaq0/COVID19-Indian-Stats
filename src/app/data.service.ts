@@ -141,6 +141,16 @@ export class DataService {
       name: "Mizoram",
       lat: 23.1645,
       lng: 92.9376
+    },
+    {
+      name: "Andaman and Nicobar Islands",
+      lat: 11.7401,
+      lng: 92.6586
+    },
+    {
+      name: "Goa",
+      lat: 15.2993,
+      lng: 74.1240
     }
   ];
 
@@ -432,8 +442,7 @@ export class DataService {
         .then(
           response => {
             let data = [],
-              tIndians = 0,
-              tForeign = 0,
+              tTotal = 0,
               tCured = 0,
               tDeaths = 0;
             const $ = cheerio.load(response);
@@ -452,38 +461,32 @@ export class DataService {
                 .trim();
               let d = this.data.find(Data => Data.name == name);
               if (!d) return;
+              console.log($(element).text().trim());
               let lat = d.lat,
                 lng = d.lng;
-              let indian = +$(_("td")[2])
+              let total = +$(_("td")[2])
                 .text()
                 .trim();
-              tIndians += indian;
-              let foreign = +$(_("td")[3])
-                .text()
-                .trim();
-              tForeign += foreign;
-              let cured = +$(_("td")[4])
+              tTotal += total;
+              let cured = +$(_("td")[3])
                 .text()
                 .trim();
               tCured += cured;
-              let death = +$(_("td")[5])
+              let death = +$(_("td")[4])
                 .text()
                 .trim();
               tDeaths += death;
-              let total = indian + foreign;
               data.push({
                 name,
-                indian,
-                foreign,
+                total,
                 cured,
                 death,
-                total,
                 lat,
                 lng
               });
             });
             console.log(data);
-            resolve({ data, lastUpdated, tIndians, tForeign, tCured, tDeaths });
+            resolve({ data, lastUpdated, tTotal, tCured, tDeaths });
           },
           error => {
             reject(error);
