@@ -259,7 +259,7 @@ export class AppComponent implements  AfterViewInit {
     let newZoom = this.map.getZoom();
     if (
       !this.heatmap &&
-      ((this.zoomLevel < 5 && newZoom >= 5) || (this.zoomLevel >= 5 && newZoom < 5))
+      ((this.zoomLevel < 4 && newZoom >= 4) || (this.zoomLevel >= 4 && newZoom < 4))
     ){
       this.make();
     }
@@ -300,7 +300,7 @@ export class AppComponent implements  AfterViewInit {
     } else {
       let zoom = this.map.getZoom();
       this.legends = [];
-      if (zoom < 5) {
+      if (zoom < 4) {
         let infoWindowContent: string = "",
           pieValues: number[] = [],
           pieColors: string[] = [],

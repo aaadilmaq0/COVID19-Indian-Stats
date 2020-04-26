@@ -151,6 +151,31 @@ export class DataService {
       name: "Goa",
       lat: 15.2993,
       lng: 74.1240
+    },
+    {
+      name: "Jharkhand",
+      lat: 23.6102,
+      lng: 85.2799
+    },
+    {
+      name: "Arunachal Pradesh",
+      lat: 28.2180,
+      lng: 94.7278
+    },
+    {
+      name: "Tripura",
+      lat: 23.9408,
+      lng: 91.9882
+    },
+    {
+      name: "Meghalaya",
+      lat: 25.4670,
+      lng: 91.3662
+    },
+    {
+      name: "Assam",
+      lat: 26.2006,
+      lng: 92.9376
     }
   ];
 
